@@ -1,0 +1,56 @@
+<template>
+    <Scroll :height="height" :on-reach-bottom="onReachBottom">
+        <div v-if="sessions.length > 0" class="contact-list"> 
+            <session-list-item v-for="(session, index) in sessions" :class="[{'selected': index === num}]" :key="index" :item="session" @click.native="clickContactItem(index)"></session-list-item>
+        </div>
+        <div v-else class="noData">
+            暂无好友
+        </div>
+    </Scroll>
+</template>
+<script>
+import sessionListItem from './session-list-item.vue'
+export default {
+    props: {
+        height: {
+            type: Number,
+            required: true
+        },
+        sessions: {
+            type: Array,
+            required: true
+        },
+        onItemClick: {
+            type: Function,
+            required: true
+        },
+        onReachBottom: {
+            type: Function,
+            required: false,
+            default: () => (new Promise(resolve => resolve()))
+        }
+    },
+    components: {
+        sessionListItem
+    },
+    data() {
+        return {
+            num: 0
+        }
+    },
+    mounted() {
+        _.isEmpty(this.sessions) || this.onItemClick(_.first(this.sessions))
+    },
+    watch: {
+        num(val) {
+            this.onItemClick(this.sessions[val])
+        }
+    },
+    methods: {
+        clickContactItem(index) {
+            this.num = index
+        }
+    }
+}
+</script>
+

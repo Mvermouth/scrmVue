@@ -1,0 +1,67 @@
+/**
+ * 列表卡片布局
+ */
+
+// List Grid
+@app-grid-cls: ~"@{app-css-prefix}grid";
+
+.@{app-grid-cls} {
+
+    // 容器
+    position: relative;
+    min-height: 100px;
+
+    // 栅格布局
+    &-grid {
+
+        // 元素
+        &-grid {
+            margin-bottom: @font-size-base;
+        }
+    }
+
+    // flex布局
+    &-flex {
+
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: center;
+
+        // 元素
+        &-grid {
+            flex: 0 1 auto; 
+        }
+    }
+
+    .grid-item {
+
+		border: 2px solid transparent;
+		position: relative;
+		.check-box-bg {
+			display: none;
+			position: absolute;
+			width: calc(~"100% - 8px");
+			background: rgba(0,0,0,0.4);
+			height: 30px;
+			top:4px;
+			right: 4px;
+		}
+		.check-box {
+			position: absolute;
+			right: 4px;
+			top: 4px;
+		}
+	}
+	.select-optional{
+		&:hover {
+			.check-box-bg {
+				display: block
+			}
+		}
+		.row-checked {
+			display: block
+		}
+	}
+	
+}

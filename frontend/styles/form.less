@@ -1,0 +1,21 @@
+/**
+ * 表单
+ */
+
+// Form
+@app-form-cls: ~"@{app-css-prefix}form";
+
+.@{app-form-cls} {
+
+    &-operations {
+        text-align: center;
+
+        button {
+            margin-left: @font-size-base;
+        }
+
+        button:first-child {
+            margin-left: 0;
+        }
+    }
+}

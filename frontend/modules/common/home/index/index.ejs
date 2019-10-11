@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= site.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="shortcut icon" href="<%= site.favicon %>" />
+</head>
+<body style="overflow:hidden;">
+    <script type="text/javascript">
+        window.AppData = {
+            site: <%- JSON.stringify(site || {}) %>,
+            enableUim: <%- JSON.stringify(enableUim || false) %>,
+            menus: <%- JSON.stringify(menus || []) %>,
+            referer: '<%= referer %>',
+            user: <%- JSON.stringify(user) %>,
+            config: <%- JSON.stringify(config) %>
+        }
+        var notNeedChildrenHash = "资金管理|推荐内容|统计分析";
+        function fil(data){
+            if(data && data.length > 0){
+                for(var i = 0;i < data.length;i++){
+                    var name = data[i].name;
+                    if(notNeedChildrenHash.indexOf(name) > -1){
+                        data.splice(i,1);
+                        fil(data);
+                        break;
+                    } else {
+                        if(data[i].children && data[i].children.length > 0){
+                            fil(data[i].children);
+                        }
+                    }
+                }
+            }
+        }
+        fil(window.AppData.menus);
+        //window.AppData.menus = arrayTemp;
+        window.AppData.enableUim = false;
+    </script>
+    <div id="app"></div>
+</body>
+</html>

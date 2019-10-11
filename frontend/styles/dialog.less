@@ -1,0 +1,86 @@
+/**
+ * 对话框
+ */
+
+@app-dialog-cls: ~"@{app-css-prefix}dialog";
+
+.@{app-dialog-cls}-wrap {
+
+    .@{app-dialog-cls}, .@{app-dialog-cls}-minimized {
+        overflow: hidden;
+        box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
+        border-radius:  @border-radius-small;
+
+        &-body {
+            width: 100%;
+            height: 100%;
+
+            .@{app-dialog-cls}-head {
+                cursor: move;
+                color: @app-dialog-head-color;
+                background: @app-dialog-head-background;
+                padding: 0 (@app-dialog-head-height * 2) 0 floor(@app-dialog-head-height / 2);
+                overflow: hidden;
+                position: relative;
+
+                h1 {
+                    font-size: @font-size-small;
+                    height: @app-dialog-head-height;
+                    line-height: @app-dialog-head-height;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+
+                .dialog-op {
+                    position: absolute;
+                    top: 0;
+                    right: floor(@app-dialog-head-height / 2.667);
+                    bottom: 0;
+                    display: flex;
+                    flex-direction: row-reverse;
+
+                    i {
+                        font-size: @font-size-base;
+                        height: @app-dialog-head-height;
+                        line-height: @app-dialog-head-height;
+                        padding: 0 floor(@font-size-base / 2);
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .@{app-dialog-cls}-content {
+                position: absolute;
+                top: @app-dialog-head-height;
+                left: 0;
+                right: 0;
+                bottom: @app-dialog-actions-height;
+                background: @app-dialog-content-background;
+            }
+
+            .@{app-dialog-cls}-content-without-actions {
+                bottom: 0;
+            }
+
+            .@{app-dialog-cls}-actions {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: @layout-body-background;
+                height: @app-dialog-actions-height;
+                line-height: @app-dialog-actions-height;
+                text-align: center;
+
+                button {
+                    margin-left: @font-size-base;
+                }
+
+                button:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}

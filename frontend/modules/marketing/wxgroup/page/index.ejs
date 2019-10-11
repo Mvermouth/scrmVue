@@ -1,0 +1,12 @@
+<script type="text/javascript">
+    window.AppData = {
+        enableUim: <%- JSON.stringify(enableUim || false) %>,
+        site: <%- JSON.stringify(site || {}) %>,
+        domain: <%- JSON.stringify(domain || null) %>
+    }
+    window.wxgroupData = window.AppData.domain;
+</script>
+<div>
+    <div id="app"></div>
+</div>
+{{include:../../../../templates/common/page.ejs}}

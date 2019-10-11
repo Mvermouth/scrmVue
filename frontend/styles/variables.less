@@ -1,0 +1,85 @@
+/**
+ * LESS 变量定义
+ */
+//@import 'colors/colorPalette.less';
+
+// iview 定义的变量
+@import '~iview/src/styles/custom.less';
+@body-background                                : transparent;
+@layout-header-background                       : hsl(0, 0%, 100%);
+@font-size-base                                 : 16px;
+@font-size-small                                : 14px;
+
+// Color
+@light-primary-color                            : #5cadff;
+@dark-primary-color                             : #2b85e4;
+@error-color                                    : #ed3f14;
+@title-color                                    : #1c2438;
+@content-color                                  : #495060;
+@sub-color                                      : #80848f;
+@disabled-color                                 : #bbbec4;
+@border-color                                   : #030303;
+@divider-color                                  : #e9eaec;
+@background-color                               : #f8f8f9;
+@info-background-color                          : #eaf4fe;
+@success-background-color                       : #e8f9f0;
+@warning-background-color                       : #fff5e6;
+@error-background-color                         : #fdece8;
+
+// Prefix
+@app-css-prefix                                 : app-;
+
+// Layout
+@app-layout-min-height                          : 564px;
+@app-layout-sider-shadow                        : 2px 0 6px rgba(0, 21, 41, .35);
+@app-layout-sider-background                    : hsl(209, 100%, 8%);
+@app-layout-header-shadow                       : 0 1px 4px rgba(0, 21, 41, .08);
+@app-layout-header-color                        : @text-color;
+@app-layout-title-background                    : hsl(209, 100%, 13%);
+@app-layout-title-color                         : hsl(0, 0%, 100%);
+@app-layout-title-font-size                     : @font-size-base + 4;
+@app-layout-trigger-color                       : @app-layout-header-color;
+@app-layout-trigger-background                  : transparent;
+@app-layout-trigger-hover-background            : #e6f7ff;
+@app-layout-menu-height                         : floor(@font-size-base * 2.5);
+@app-layout-menu-selected-background            : hsl(209, 100%, 55%);
+@app-layout-menu-expanded-background            : transparent;
+@app-layout-menu-color                          : hsla(0, 0%, 100%, .65);
+@app-layout-menu-active-color                   : hsl(0, 0%, 100%);
+@app-layout-menu-selected-color                 : @app-layout-menu-active-color;
+@app-layout-menu-expanded-color                 : @app-layout-menu-selected-background;
+@app-layout-menu-background                     : @app-layout-sider-background;
+@app-layout-submenu-height                      : @app-layout-menu-height;
+@app-layout-sub-menu-background                 : hsl(209, 100%, 5%);
+@app-layout-sub-menu-shadow                     : inset 0 2px 8px rgba(0, 0, 0, .45);
+@app-layout-sub-menu-drop-background            : @app-layout-sider-background;
+@app-layout-sub-menu-drop-selected-background   : @app-layout-menu-selected-background;
+@app-layout-sub-menu-drop-expanded-background   : transparent;
+@app-layout-sub-menu-drop-color                 : @app-layout-menu-color;
+@app-layout-sub-menu-drop-active-color          : @app-layout-menu-active-color;
+@app-layout-sub-menu-drop-selected-color        : @app-layout-menu-active-color;
+@app-layout-sub-menu-drop-expanded-color        : @app-layout-menu-selected-background;
+@app-layout-tabs-tab-height                     : floor(@font-size-base * 2.5);
+@app-layout-tabs-tab-color                      : @text-color;
+@app-layout-tabs-tab-hover-color                : @link-hover-color;
+@app-layout-tabs-tab-active-color               : @primary-color;
+@app-layout-tabs-tab-close-color                : @legend-color;
+@app-layout-tabs-border                         : 1px solid hsl(0, 0%, 91%);
+@app-layout-tabs-active-bar-color               : @primary-color;
+
+// Page
+@app-page-background                            : hsl(0, 0%, 100%); 
+@app-page-header-background                     : hsl(0, 0%, 100%);
+@app-page-header-title-color                    : hsla(0, 0%, 0%, 0.85);
+@app-page-header-border                         : 1px solid hsl(0, 0%, 91%);
+@app-page-header-term-color                     : hsla(0, 0%, 0%, 0.85);
+@app-page-header-value-color                    : hsla(0, 0%, 0%, 0.65);
+@app-page-header-extra-term-color               : hsla(0, 0%, 0%, 0.45);
+@app-page-header-extra-value-color              : hsla(0, 0%, 0%, 0.85);
+
+// Dialog
+@app-dialog-head-color                          : @app-layout-title-color;
+@app-dialog-head-background                     : @app-layout-title-background;
+@app-dialog-head-height                         : floor(@font-size-base * 2.5);
+@app-dialog-content-background                  : @app-page-background;
+@app-dialog-actions-height                      : floor(@btn-circle-size-large * 1.25);

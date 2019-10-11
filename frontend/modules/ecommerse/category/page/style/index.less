@@ -1,0 +1,119 @@
+.category-layer{
+    background: #ffff;
+    padding:10px 30px;
+}
+.category-btn-group{
+    margin:10px 0 20px 0;
+    Button{
+        color:#fff;
+        font-size:14px;
+    }
+    span{
+        margin:0 8px;
+    }
+}
+table{
+    background:#fff;
+}
+thead{
+    height:50px;
+    line-height:50px;
+    background:#f5f5f5;
+    th{
+        text-align:left;
+        padding-left:60px;
+    }
+}
+tr{
+    height:60px;
+    line-height:60px;
+    td{
+        border-bottom: 1px solid #e9eaec;
+        span{
+            color: #0089ff;
+            cursor: pointer;
+        }
+    }
+}
+.sort{
+    display: inline;
+    // padding-left:30px;
+    .num{
+        width: 30px;
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border: 1px solid #c0c8cf;
+        color: #3a3b40;
+        font-size: 12px;
+        background: #fff;
+        position: relative;
+        margin-left: 40px;
+    }
+}
+.name-layer{
+    position: relative;
+    display: flex;
+    align-items: center;
+    .icon{
+        width: 16px;
+        height: 16px;
+        text-align: center;
+        line-height: 11px;
+        cursor: default;
+        user-select: none;
+        overflow: hidden;
+    }
+    .name{
+        margin:0 10px;
+        color:#000
+    }
+    .add-btn{
+        color: #0089ff;
+        cursor: pointer;
+    }
+}
+.name-have-children::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45px;
+    height: 0;
+    border-top: 1px solid #e5e5e5;
+    left: -42px;
+}
+.name-have-children::after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 34px;
+    border-left: 1px solid #e5e5e5;
+    left: -42px;
+    top: -4px;
+}
+.num-have-children::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45px;
+    height: 0;
+    border-top: 1px solid #e5e5e5;
+    left: -45px;
+}
+.num-have-children::after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 32px;
+    border-left: 1px solid #e5e5e5;
+    left: -45px;
+    top: -18px;
+}
+.opration-btn{
+    text-align:center;
+    span{
+        display:inline-block;
+        padding:3px 5px;
+    }
+}

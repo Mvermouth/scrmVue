@@ -1,0 +1,628 @@
+/**
+ * 页面框架 & 布局
+ */
+
+// Layout
+@app-layout-cls: ~"@{app-css-prefix}layout";
+
+.@{app-layout-cls} {
+    min-height: 100vh;
+    /**
+    //显示全屏的样式
+    width: 100%; 
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    */
+     
+    // 顶部条
+    &-header {
+        padding-left: 0;
+        padding-right: 12px;
+        box-shadow: @app-layout-header-shadow;
+        position: relative;
+        z-index: 4;
+        overflow: hidden;
+
+        .menus {
+            float: left;
+            position: relative;
+
+            .menu-item {
+                font-size: @font-size-base;
+                display: inline-block;
+                height: 100%;
+                line-height: @layout-header-height;
+                cursor: pointer;
+                color: @app-layout-trigger-color;
+                transition: all @animation-time;
+                padding: 0 (@font-size-base);
+                background: @app-layout-trigger-background;
+                font-weight: 700;
+
+                &:hover {
+                    color: @app-layout-tabs-tab-hover-color;
+                } 
+
+                i {
+                    font-weight: normal;
+                    margin-right: 2px;
+                }
+            }
+
+            .menu-item-active {
+                color: @app-layout-menu-active-color;
+                background: @app-layout-menu-selected-background;
+
+                &:hover {
+                    color: @app-layout-menu-active-color;
+                }
+            }
+
+            .active-bar {
+                height: 2px;
+                width: 1px;
+                background: @app-layout-tabs-active-bar-color;
+                position: absolute;
+                left: 0;
+                bottom: 1px;
+                transition: transform @animation-time @ease-in-out;
+                transform-origin: top left;
+            }
+        }
+
+        // 工具栏
+        .tools {
+            float: right;
+            height: 100%;
+
+            .action {
+                cursor: pointer;
+                padding: 0 12px;
+                display: inline-block;
+                transition: all @animation-time;
+                height: 100%;
+                text-align: center;
+                font-size: @font-size-base;
+                color: @app-layout-header-color;
+                position: relative;
+
+                &:hover {
+                    background: @app-layout-trigger-hover-background;
+                }
+
+                .name {
+                    font-size: @font-size-small;
+                }
+
+                // 通知badge提示
+                sup {
+                    top: -12px;
+                }
+            }
+        }
+    }
+
+    // 侧边导航
+    &-sider {
+        box-shadow: @app-layout-sider-shadow;
+        background: @app-layout-sider-background;
+        position: relative;
+        z-index: 5;
+    }
+
+    // 导航折叠按钮
+    &-trigger {
+        float: left;
+        line-height: @layout-header-height;
+        cursor: pointer;
+        color: @app-layout-trigger-color;
+        transition: all @animation-time;
+        padding: 0 24px;
+        background: @app-layout-trigger-background;
+
+        &-collapsed {
+            transform: rotate(-90deg);
+        }
+
+        &:hover {
+            background: @app-layout-trigger-hover-background;
+        }
+    }
+
+    // 网站标题区域
+    &-title {
+        position: relative;
+        height: @layout-header-height;
+        line-height: @layout-header-height;
+        padding-left: 24px;
+        background: @app-layout-title-background;
+        overflow: hidden;
+        transition: all @animation-time;
+
+        // logo图
+        div {
+            display: inline-block;
+            vertical-align: middle;
+            width: 32px;
+            height: 32px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            margin-right: 12px;
+        }
+
+        // 网站标题
+        h1 {
+            font-size: @app-layout-title-font-size;
+            font-weight: 600;
+            display: inline-block;
+            vertical-align: middle;
+            color: @app-layout-title-color;
+        }
+    }
+
+    // 侧边导航条目容器，用于隐藏滚动条
+    &-nav-wrap-out {
+        overflow: hidden;
+        height: calc(~"100vh - "@layout-header-height);
+        min-height: @app-layout-min-height - @layout-header-height;
+
+        > .@{app-layout-cls}-nav-wrap-in {
+            margin-right: -18px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    // 侧边导航
+    &-nav {
+        height: calc(~"100vh - "@layout-header-height);
+        min-height: @app-layout-min-height - @layout-header-height;
+        padding: 16px 0;
+        background: @app-layout-menu-background;
+
+        &.@{app-layout-cls}-nav-after {
+            &:after {
+                background: transparent;
+            }
+        }
+
+        &-submenu-dropdown {
+            display: block;
+        }
+
+        // 有子菜单的条目
+        &-item&-submenu {
+
+            > div {
+                padding: 0;
+                background: transparent !important;
+                &:hover {
+                    background: transparent !important;
+                }
+                
+                // submenu标题
+                > div.@{app-layout-cls}-nav-submenu-title {
+                    position: relative;
+                    width: 100%;
+                    margin: 4px 0;
+                    padding: 0 34px 0 0;
+                    font-size: @font-size-small;
+                    line-height: @app-layout-submenu-height;
+                    height: @app-layout-submenu-height;
+                    overflow: visible;
+                    // text-overflow: ellipsis;
+                    white-space: nowrap;
+                    color: @app-layout-menu-color;
+                    background: transparent;
+                    transition: color @animation-time @ease-in-out,
+                                border-color @animation-time @ease-in-out,
+                                background-color @animation-time @ease-in-out,
+                                padding @animation-time @ease-in-out;
+
+                    &:hover {
+                        color: @app-layout-menu-active-color;
+                        background: transparent;    
+
+                        +i {
+                            color: @app-layout-menu-active-color;
+                        }
+                    }
+                    > .icon {
+                        width: 20px;
+                        display: inline-block;
+                        text-align: center;
+                    }
+
+                    //submenu图标
+                    > span > svg, > span > i {
+                        font-size: @font-size-small;
+                        margin-right: 0px;
+                        transition: font-size @animation-time @ease-in-out,
+                                    margin @animation-time @ease-in-out;
+                    }
+
+                    // submenu箭头
+                    +i {
+                        position: absolute;
+                        line-height: @app-layout-submenu-height;
+                        font-weight: bold;
+                        float: none;
+                        margin: 0;
+                        top: 0;
+                        right: 34px;
+                        color: @app-layout-menu-color;
+                        transition: color @animation-time @ease-in-out;
+                    }
+
+                    // collapsed时的dropmenu
+                    > .drop-menu {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+
+                        > div {
+                            width: 100%;
+                            height: 100%;
+
+                            > div {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+                
+                // 导航折叠只显示顶级菜单图标
+                > div.@{app-layout-cls}-nav-submenu-title-collapsed {
+                    padding: 0 30px;
+
+                    > .icon {
+                        width: 20px;
+                        display: inline-block;
+                        text-align: center;
+                    }
+
+                    > span > svg, > span > i {
+                        font-size: @font-size-base;
+                        margin-right: 0;
+                    }
+
+                    > .name {
+                        max-width: 0;
+                        opacity: 0;
+                        display: inline-block;
+                    }
+
+                    +i {
+                        display: none;
+                    }
+                }
+
+                // 导航折叠，进入dropdwon区域时高亮
+                > div.@{app-layout-cls}-nav-submenu-title-expanded {
+                    color: @app-layout-menu-expanded-color;
+                    background: @app-layout-menu-expanded-background;    
+                    +i {
+                        color: @app-layout-menu-expanded-color;
+                    } 
+                }
+
+                +ul {
+                    background: @app-layout-sub-menu-background;
+                    box-shadow: @app-layout-sub-menu-shadow;
+                }
+            }
+        }
+
+        // submenu 打开或选中时高亮
+        &-item&-submenu-opened, &-item&-submenu-active {
+            > div > div.@{app-layout-cls}-nav-submenu-title {
+                color: @app-layout-menu-active-color;
+                +i {
+                    color: @app-layout-menu-active-color;
+                }
+            }
+        }
+
+        // 没有子菜单的条目
+        &-item&-menu-item {
+
+            padding: 4px 0 8px 0;
+            border-right: none !important;
+            background: transparent !important;
+
+            &:last-child {
+                padding-bottom: 4px;
+            }
+
+            > div {
+                position: relative;
+                width: 100%;
+                padding: 0 16px 0 0;
+                font-size: @font-size-small;
+                line-height: @app-layout-menu-height ;
+                height: @app-layout-menu-height ;
+                overflow: visible;
+                // text-overflow: ellipsis;
+                white-space: nowrap;
+                color: @app-layout-menu-color;
+                background: transparent;
+                transition: color @animation-time @ease-in-out,
+                            border-color @animation-time @ease-in-out,
+                            background-color @animation-time @ease-in-out,
+                            padding @animation-time @ease-in-out;
+                
+                > .icon {
+                    width: 20px;
+                    display: inline-block;
+                    text-align: center;
+                }
+                > span > svg, > span > i {
+                    font-size: @font-size-small;
+                    margin-right: 0px;
+                    transition: font-size @animation-time @ease-in-out,
+                                margin @animation-time @ease-in-out;
+                }
+            }
+            &-selected {
+                > div {
+                    color: @app-layout-menu-selected-color;
+                    background: @app-layout-menu-selected-background;
+                }
+            }
+
+            &-normal {
+                > div:hover {
+                    color: @app-layout-menu-active-color !important;
+                    background: transparent !important;
+                }
+            }
+
+            //折叠时没有子菜单的一级菜单
+            &-collapsed {
+                >div {
+                    padding: 0 30px;
+                    overflow: visible;
+                    text-overflow: clip;
+
+                    > .icon {
+                        width: 20px;
+                        display: inline-block;
+                        text-align: center;
+                    }
+                }
+                
+                > div > span > svg, >div > span > i {
+                    font-size: @font-size-base;
+                    margin-right: 0;
+                }
+
+                > div > .name {
+                    max-width: 0;
+                    opacity: 0;
+                    display: inline-block;
+                }
+
+                > div +i {
+                    display: none;
+                }
+            }
+        }
+        
+
+        // submenu折叠时的弹出菜单样式
+        &-submenu-drop {
+            overflow: visible;
+            background: @app-layout-sub-menu-drop-background;
+            min-width: 160px;
+            padding: 0;
+            margin-left: 5px;
+            max-height: 1000px;
+
+            // 递归嵌套的菜单wrap
+            > ul > div {
+                width: 100%;
+            }
+
+            > ul > li,                  // 菜单项目
+            > ul > div > div > li {     // 递归嵌套的菜单项目
+                padding: 0 30px 0 16px;
+                font-size: @font-size-small !important;
+                height: @app-layout-submenu-height;
+                line-height: @app-layout-submenu-height;
+                margin: 4px 0 4px;
+                color: @app-layout-sub-menu-drop-color;
+                position: relative;
+
+                &:hover {
+                    color: @app-layout-sub-menu-drop-active-color;
+                    background: transparent
+                }
+
+                i {
+                    position: absolute;
+                    top: 0;
+                    right: 16px;
+                    height: @app-layout-submenu-height;
+                    line-height: @app-layout-submenu-height;
+                }
+            }
+
+            &-item-expanded {
+                background: @app-layout-sub-menu-drop-expanded-background;
+                color: @app-layout-sub-menu-drop-expanded-color !important;
+            }
+
+            &-item-selected {
+                background: @app-layout-sub-menu-drop-selected-background;
+                color: @app-layout-sub-menu-drop-selected-color !important;
+
+                &:hover {
+                    background: @app-layout-sub-menu-drop-selected-background !important;
+                    color: @app-layout-sub-menu-drop-selected-color !important;
+                }
+            }
+        }
+
+        // 侧边导航顶级弹出菜单，为了配合隐藏滚动条，需要重置偏移
+        &-submenu-drop-root {
+            margin-left: -13px;
+        }
+    }
+
+    &-tabs {
+
+        &-wrap {
+            background: @layout-header-background;
+            padding: @font-size-base 62px 0 @font-size-base;
+            border-bottom: @app-layout-tabs-border;
+            position: relative;
+        }
+
+        &-list {
+            width: 100%;
+            height: @app-layout-tabs-tab-height;
+            position: relative;
+            overflow: hidden;
+
+            ul {
+                list-style: none;
+                display: block;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                overflow: visible;
+                white-space: nowrap;
+                transition: transform @animation-time @ease-in-out;
+
+                li {
+                    display: inline-block;
+                    line-height: @app-layout-tabs-tab-height;
+                    height: @app-layout-tabs-tab-height;
+                    padding: 0 (@font-size-small * 2) 0 16px;
+                    font-size: @font-size-small;
+                    margin-right: 16px;
+                    cursor: pointer;
+                    transition: color @animation-time @ease-in-out;
+                    color: @app-layout-tabs-tab-color;
+                    max-width: 200px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    position: relative;
+
+                    i {
+                        position: absolute;
+                        width: (@font-size-small * 2);
+                        height: @app-layout-tabs-tab-height;
+                        line-height: @app-layout-tabs-tab-height;
+                        right: 0;
+                        top: 0;
+                        font-size: @font-size-base + 6;
+                        color: @app-layout-tabs-tab-close-color;
+                        text-align: center;
+                        opacity: 0;
+                        transition: all @animation-time @ease-in-out;
+                    }
+
+                    &:hover {
+                        color: @app-layout-tabs-tab-hover-color;
+                        i {
+                            opacity: 1;
+                        }
+                    }
+
+                    &:active {
+                        color: @app-layout-tabs-tab-hover-color;
+                        i {
+                            opacity: 1;
+                        }
+                    }
+
+                    &.active {
+                        color: @app-layout-tabs-tab-active-color;
+                        i {
+                            opacity: 1;
+                        }
+                    }
+
+                    &.unclosable {
+                        padding-right: 16px;
+                    }
+                }
+            }
+        }
+
+        &-action {
+            position: absolute;
+            bottom: 0;
+            right: 24px;
+            width: 40px;
+            height: @app-layout-tabs-tab-height;
+            line-height: @app-layout-tabs-tab-height;
+            text-align: right;
+            cursor: pointer;
+
+            i {
+                font-size: @font-size-base + 6;
+                position: relative;
+                top: 3px;
+            }
+        }
+
+        &-active-bar {
+            height: 2px;
+            width: 1px;
+            background: @app-layout-tabs-active-bar-color;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transition: transform @animation-time @ease-in-out;
+            transform-origin: top left;
+        }
+    }
+
+    &-content-wrap, &-content {
+        position: relative;
+
+        .content-loading {
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background: @layout-body-background;
+
+            .loading-wrap {
+                position: relative;
+                width: 100%;
+                height: 50%;
+                top: 5%;
+
+                // 覆盖iview默认
+                .ivu-spin-fix {
+                    background: transparent;
+                }
+            }
+        }
+    }
+
+    &-footer {
+        p {
+            text-align: center;
+            font-size: @font-size-small;
+        }
+    }
+}
+

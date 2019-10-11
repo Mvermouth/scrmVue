@@ -1,0 +1,101 @@
+.pageHeader{
+    border-bottom:1px solid #e8e8e8;
+    font-family: "Monospaced Number","Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0,0,0,.65);
+    margin:-10px -10px 0 -10px;
+    background:#fff;
+    padding:16px 16px 0;
+}
+.detail{
+    display:flex;
+}
+.detail-logo{
+    flex:0 1 auto;
+    margin:4px 16px 16px 0;
+    img{
+        width:28px;
+        height:auto;
+        border-radius:4px;
+    }
+}
+.detail-main{
+    flex:auto;
+    h1{
+        font-size:20px;
+        flex:auto;
+    }
+    .title{
+        display:flex;
+        margin-bottom:16px;
+    }
+    .active{
+        flex:auto;
+        text-align:right;
+    }
+}
+.content{
+    display: flex;
+}
+.process-card {
+	padding: 40px 10px
+}
+.description-list{
+    flex:auto;
+    margin-bottom:16px;
+}
+.extraContent{
+    margin-left:44px;
+    min-width:242px;
+    margin-bottom:16px;
+}
+.text-seconday{
+    color:rgba(0,0,0,0.45);
+    text-align:right;
+}
+.heading{
+    color:rgba(0,0,0,0.85);
+    font-size:20px;
+    text-align:right;
+}
+.nav-tabs-scroll{
+    position:relative;
+    display:inline-block;
+}
+.nav-tab-ink-bar{
+    z-index:1;
+    position: absolute;
+    left:0;
+    bottom:0;
+    height:2px;
+    background-color:#1890ff;
+    transform-origin: 0;
+}
+.nav-tab-bar-animated{
+    -webkit-transition: width .3s cubic-bezier(.645,.045,.355,1),-webkit-transform .3s cubic-bezier(.645,.045,.355,1);
+    transition: width .3s cubic-bezier(.645,.045,.355,1),-webkit-transform .3s cubic-bezier(.645,.045,.355,1);
+    transition: transform .3s cubic-bezier(.645,.045,.355,1),width .3s cubic-bezier(.645,.045,.355,1);
+    transition: transform .3s cubic-bezier(.645,.045,.355,1),width .3s cubic-bezier(.645,.045,.355,1),-webkit-transform .3s cubic-bezier(.645,.045,.355,1);
+}
+.nav-tab-item{
+    display:inline-block;
+    height:100%;
+    margin:0 32px 0 0;
+    padding:12px 16px;
+    cursor: pointer;
+    text-decoration:none;
+}
+.nav-active{
+    color:#1890ff;
+    font-weight:500;
+}
+.card-body{
+    padding:16px 24px;
+}
+.noData{
+    color:rgba(0,0,0,.25);
+    text-align:center;
+    line-height:64px;
+    font-size:16px;
+}

@@ -1,0 +1,66 @@
+<template>
+    <Scroll :height="height" :on-reach-bottom="onReachBottom">
+        <div v-if="groups.length > 0" class="contact-list"> 
+            <group-list-item  v-for="(group, idx) in groups" :class="[{'selected': idx === selectedIndex}]" :key="idx" :item="group" @click.native="handleItemClick(group)"></group-list-item >
+        </div>
+        <div v-else class="noData">
+            暂无群列表
+        </div>
+    </Scroll>
+</template>
+<script>
+import GroupListItem from './group-list-item.vue'
+export default {
+    props: {
+        index: {
+            type: Number,
+            required: false,
+            default: 0
+        },
+        height: {
+            type: Number,
+            required: true
+        },  
+        groups: {
+            type: Array,
+            required: true
+        },
+        onItemClick: {
+            type: Function,
+            required: true
+        },
+        onReachBottom: {
+            type: Function,
+            required: false,
+            default: async()=>{
+                
+            }
+        }
+    },
+    components: {
+        GroupListItem
+    },
+    mounted() {
+    },
+    data() {
+        return {
+            selectedIndex: this.index,
+            groupMap: {}
+        }
+    },
+    watch: {
+        groups(val) {
+            this.groupMap = _.keyBy(this.groups, '')
+            (0 <= val && val < this.groups.length) && this.handleItemClick(val)
+        }
+    },
+    methods: {
+        handleItemClick(group) {
+            if (this.group === group) return
+
+            this.onItemClick(group)
+        }
+    }
+}
+</script>
+

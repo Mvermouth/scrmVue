@@ -1,0 +1,15 @@
+{{include:../../../../templates/common/header.ejs}}
+<script type="text/javascript">
+    window.AppData = {
+        modules: <%- JSON.stringify(modules || {}) %>,
+        enableUim: <%- JSON.stringify(enableUim || false) %>,
+        site: <%- JSON.stringify(site || {}) %>,
+        dashboard: <%- JSON.stringify(dashboard || {}) %>
+    }
+</script>
+<div class="main-page">
+    <div class="main-content">
+        <div id="app"></div>
+    </div>
+</div>
+{{include:../../../../templates/common/footer.ejs}}

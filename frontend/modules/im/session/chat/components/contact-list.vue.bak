@@ -1,0 +1,58 @@
+<template>
+    <Scroll v-if="contacts.length > 0" :height="height" :on-reach-bottom="onReachBottom">
+        <div  class="contact-list"> 
+            <contact-list-item v-for="(contact, index) in contacts" :class="[{'selected': index === num}]" :key="index" :item="contact.contact" @click.native="clickContactItem(index)"></contact-list-item>
+        </div>
+    </Scroll>
+    <div v-else class="noData">
+        暂无好友
+    </div>
+</template>
+<script>
+import contactListItem from './contact-list-item.vue'
+export default {
+    props: {
+        height: {
+            type: Number,
+            required: true
+        },
+        contacts: {
+            type: Array,
+            required: true
+        },
+        onItemClick: {
+            type: Function,
+            required: true
+        },
+        onReachBottom: {
+            type: Function,
+            required: false,
+            default: async ()=>{
+                
+            }
+        }
+    },
+    components: {
+        contactListItem
+    },
+    data() {
+        return {
+            num: 0
+        }
+    },
+    mounted() {
+        _.isEmpty(this.contacts) || this.onItemClick(_.first(this.contacts))
+    },
+    watch: {
+        num(val) {
+            this.onItemClick(this.contacts[val])
+        }
+    },
+    methods: {
+        clickContactItem(index) {
+            this.num = index
+        }
+    }
+}
+</script>
+

@@ -1,0 +1,181 @@
+<template>
+    <div class="panel">
+        <div class="list-aside">
+            <div class="list-aside-header">
+                <div class="search-bar">
+                    <i-input v-model="keyword" placeholder="输入好友信息" ><i-button slot="append" icon="search" @click="searchSessions"></i-button></i-input>
+                </div>
+            </div>
+        
+            <div class="list-pane" ref="listPane">
+                <!-- 好友列表 -->
+                <session-list 
+                    :height="height" 
+                    :sessions="sessions" 
+                    :onItemClick="onSessionClick"
+                    :on-reach-bottom="onFetchMoreSessions"
+                ></session-list>
+                <!-- 好友列表 -->
+                <Spin v-if="sessionsLoading" class="spin" size="large" fix></Spin>
+            </div>
+        </div>
+        <div class="message-aside">
+            <div class="message-header">
+                <div class="search-bar">
+                    <date-picker class="date-pick" type="datetime" v-model="startDate" placeholder="选择起始时间"></date-picker>
+                    <i-input class="keyword-search" v-model="chatKeyword" placeholder="请输入聊天内容"><i-button slot="append" icon="search" @click="onSearchMessages"></i-button></i-input>
+                </div>
+            </div>
+            <div class="message-pane">
+                <message-list 
+                    v-if="!showQueryPanel" 
+                    :height="height" 
+                    :messages="messages" 
+                    :session="session"
+                    :query="query"
+                    :on-reach-top="fetchMessagesUpward"	
+                    :on-reach-bottom="fetchMessagesBackward"
+                ></message-list>
+                <search-result-list 
+                    v-else
+                    :height="height" 
+                    :messages="searchMessages" 
+                    :session="session"
+                    :query="query"
+                    :onViewContext="onViewContext"
+                    :on-reach-top="fetchMessagesUpward"	
+                    :on-reach-bottom="fetchMessagesBackward"
+                />
+                <Spin v-if="messagesLoading" class="spin" size="large" fix></Spin>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import SessionList from './session-list.vue'
+import MessageList from './message-list.vue'
+import SearchResultList from './search-result-list.vue'
+
+import Session from '../../../../../models/im/session'
+import Message from '../../../../../models/im/message'
+import Contact from '../../../../../models/im/contact'
+
+
+export default {
+    props: {
+        filter: {
+            type: Object,
+            default: () => {}
+        },
+        cursor: {
+			type: [Date, Number],
+			default: ''
+		}
+    },
+    components: {
+        SessionList,
+        MessageList,
+        SearchResultList
+    },
+    data() {
+        return {
+            startDate: '',
+            chatKeyword: '',
+            keyword: '',
+            sessions: [], 
+            relation: {},
+            showQueryPanel: false,  
+            sessionsLoading: true,
+            messagesLoading: true,
+            sessionPage: 1,
+            height: 0,
+            messages: [],
+            session: {},
+            query: ''
+        }
+    },
+    mounted() {
+        this.height = window.frameElement.contentWindow.innerHeight - 48
+        this.onFetchMoreSessions()
+    },
+    methods: {
+        // 会话列表查询
+		async searchSessions() {
+			this.sessionsLoading = true
+			this.sessionPage = 1
+
+            const page = await Session.page(this.filter.fromId, this.keyword, this.sessionPage, 30, [])
+            this.sessions = page.content
+			this.sessionsLoading = false
+        },
+        // 下拉无限加载会话
+        async onFetchMoreSessions() {
+			const page = await Session.page(this.filter.fromId, this.keyword, this.sessionPage, 30, [])
+            const sessions = _.concat(this.sessions, page.content)
+            sessions.forEach(session => (session.fromContact = session.fromContact || {}))
+
+            this.sessions = sessions
+
+            this.messagesLoading = false
+            this.sessionsLoading = false
+            ++this.sessionPage
+        },
+        // 消息查询
+		async onSearchMessages() {
+            if (!this.session) return
+            
+            this.showQueryPanel = this.chatKeyword !== ''
+			this.messagesLoading = true
+            this.query = this.chatKeyword !== '' ? this.chatKeyword : ''
+			const cursor = !this.startDate ? '' : new Date(this.startDate).getTime()
+			const messages = await Message.listBySession(this.session.id, this.chatKeyword, cursor, 10, 0)
+			this.showQueryPanel ? this.searchMessages = messages.content : this.messages = messages.content
+            
+            this.messagesLoading = false
+        },
+        // 点击好友列表item
+		async onSessionClick(session) {
+            // 同一个就忽略
+            if (session.id == this.session.id) return
+
+			this.keyword = this.filter.toId ? session.toPuid : ''		 // 单个好友会话或者群会话，则输入框显示该确定的好友昵称
+			this.session = session
+			this.messagesLoading = true
+            this.showQueryPanel = false
+            this.startDate = ''
+			this.chatKeyword = ''
+			this.query = ''
+            
+            console.log('onSessionClick: ', session)
+
+			const messages = await Message.listBySession(this.session.id, this.chatKeyword, this.startDate, 10, 0, [])
+			this.messages = messages.content
+            
+            this.messagesLoading = false
+        },
+        
+        // session 下拉加载消息
+        async fetchMessagesBackward() {
+			if (_.isEmpty(this.messages)) return
+                const cursor = _.last(this.messages).sendTime || ''
+				const messages = await Message.listBySession(this.session.id, this.chatKeyword, cursor, 10, 0)
+				this.messages = _.concat(this.messages, messages.content)
+        },
+        // session 上拉刷新消息
+		async fetchMessagesUpward() {
+			if (_.isEmpty(this.messages)) return
+				const cursor = _.first(this.messages).sendTime || ''
+				const messages = await Message.listBySession(this.session.id, this.chatKeyword, cursor, 10, 1)
+				this.messages = _.concat(messages.content, this.messages)
+        },
+        // 查看上下文
+		async onViewContext(sendTime) {
+			const cursor = sendTime - 20
+			const messages = await Message.listBySession(this.session.id, '', cursor, 10, 0)
+			this.messages = messages.content
+			this.showQueryPanel = false
+        },
+    }
+}
+</script>
+

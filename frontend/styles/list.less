@@ -1,0 +1,120 @@
+/**
+ * 列表
+ */
+
+// List
+@app-list-cls: ~"@{app-css-prefix}list";
+
+// 翻页列表
+.@{app-list-cls}-page-container {
+
+    .row {
+        margin-bottom: @font-size-base;
+
+        // 表格操作
+        .actions {
+
+            > div {
+                display: inline-block;
+            }
+
+            .action-item {
+                margin-right: (@font-size-base / 2);
+            }
+        }
+
+        // 表格
+        table {
+
+            tr > td:first-child {
+                // 表格单选，覆盖iview默认样式
+                .ivu-radio-wrapper {
+                    margin-right: 0;
+                }
+            }
+
+            td .label-action {
+                margin-top: 4px;
+                margin-left: (@font-size-base / 2);
+                cursor: pointer;
+            }
+            td .btn-action {
+                margin-top: 8px; 
+                margin-right: 8px;
+                cursor: pointer;
+            }
+
+            td a.link {
+                border-bottom: 1px dashed @link-color;
+            }
+
+            td a.link:hover {
+                border-bottom: 1px dashed @link-hover-color;
+            }
+
+            td a.link:active {
+                border-bottom: 1px dashed @link-active-color;
+            }
+
+            td .avatar {
+                position: relative;
+                left: 0;
+                top: 0;
+
+                img {
+                    width: 44px;
+                    height: 44px;
+                    margin: 3px auto;
+                    vertical-align: middle;
+                    background-color: #efefef;
+                    border: 1px solid #d7dde4;
+                    border-radius: 100%;
+                }
+            }
+            
+            td .text i {
+                margin-right: 5px;
+            }
+
+            td .ivu-input-group {
+                top: 0px;
+            }
+        }
+
+        // 翻页
+        .paginator {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: @font-size-base;
+
+            +.page-desc {
+                display: inline-block;
+                vertical-align: middle;
+
+                // 多选描述信息
+                +.selection-info {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-left: @font-size-base;
+
+                    i:first-child {
+                        position: relative;
+                        top: 1px;
+                    }
+
+                    b, i:not(:first-child) {
+                        color: @primary-color;
+                        font-weight: 600;
+                        margin: 0 2px;
+                    }
+
+                    span.clear-all {
+                        color: @primary-color;
+                        cursor: pointer;
+                        margin-left: 4px;
+                    }
+                }
+            }
+        }
+    }
+}

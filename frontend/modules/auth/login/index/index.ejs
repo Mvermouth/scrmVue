@@ -1,0 +1,9 @@
+{{include:../../../../templates/common/header.ejs}}
+<script type="text/javascript">
+    window.AppData = {
+        site: <%- JSON.stringify(site || {}) %>,
+        enableRegister: <%= enableRegister || false %>
+    }
+</script>
+<div id="app"></div>
+{{include:../../../../templates/common/footer.ejs}}

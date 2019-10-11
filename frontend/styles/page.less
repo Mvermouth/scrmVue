@@ -1,0 +1,36 @@
+/**
+ * 页面通用样式
+ */
+
+// Page
+@app-page-cls: ~"@{app-css-prefix}page";
+
+.main-page, .@{app-page-cls} {
+    margin: floor(@font-size-base * 1.5) floor(@font-size-base * 1.5) floor(@font-size-base * 1.5);
+
+    .main-content {
+        margin: 0 auto;
+        max-width: 1190px;
+    }
+
+    // 在Page中覆盖iview默认样式
+    .ivu-card {
+        font-size: @font-size-small;
+    }
+    .ivu-tree-title {
+        padding: 2px 8px;
+    }
+    .ivu-tree-title-selected {
+        color: @link-color;
+    }
+
+
+    .@{app-css-prefix}func-form .ivu-form-item {
+        margin-bottom: 16px;
+    }
+    .@{app-css-prefix}tree-multiple .ivu-tree-title:hover {
+        background-color: transparent;
+    }
+    
+}
+

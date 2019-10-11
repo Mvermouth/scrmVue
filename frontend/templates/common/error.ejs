@@ -1,0 +1,14 @@
+{{include:./header.ejs}}
+<script type="text/javascript">
+    window.AppData = {
+        modules: <%- JSON.stringify(modules || {}) %>,
+        site: <%- JSON.stringify(site || {}) %>,
+        error: <%- JSON.stringify(error || {}) %>
+    }
+</script>
+<div class="main-page">
+    <div class="main-content">
+        <div id="app"></div>
+    </div>
+</div>
+{{include:./footer.ejs}}

@@ -1,0 +1,179 @@
+/**
+ * 详情页样式
+ */
+
+@app-retrieve-cls: ~"@{app-css-prefix}retrieve";
+
+// 详情页头部
+.@{app-retrieve-cls}-header {
+    font-size: @font-size-small;
+    background: @app-page-header-background;
+    margin: ceil(@font-size-base * (-1.5)) ceil(@font-size-base * (-1.5)) (@font-size-base * 1.5);
+    padding: floor(@font-size-base * 2.5) floor(@font-size-base * 3.5) 0;
+    border-bottom: @app-page-header-border;
+
+    .detail {
+        display: flex;
+
+        .row {
+            display: flex;
+        }
+
+        .logo {
+            flex: 0 1 auto;
+            margin: 0 @font-size-base @font-size-base 0;
+
+            img {
+                width: 44px;
+                height: 44px;
+                border-radius: 22px;
+                display: block;
+            }
+        }
+
+        .main {
+            flex: 0 1 auto; 
+            width: 100%;
+
+            .title, .actions, .content, .extra {
+                margin-bottom: @font-size-base;
+            }
+
+            .title, .actions {
+                flex: auto;
+            }
+
+            .content, .extra {
+                flex: 0 1 auto;
+            }
+
+            .title {
+                font-size: floor(@font-size-base * 1.25);
+                font-weight: 500;
+                color: @app-page-header-title-color;
+            }
+
+            .actions {
+                text-align: right;
+                min-width: 266px;
+            }
+
+            .content {
+                .content-row {
+                    overflow: hidden;
+                    margin: 0 (@font-size-base * (-1));
+
+                    .content-col { 
+                        padding: 0 @font-size-base;
+
+                        .term, .value {
+                            padding-bottom: @font-size-base;
+                            line-height: floor(@font-size-base * 1.275);
+                            min-height: floor(@font-size-base * 1.275);
+                        }
+
+                        .term {
+                            margin-right: floor(@font-size-base / 2);
+                            white-space: nowrap;
+                            display: table-cell;
+                            color: @app-page-header-term-color;
+
+                            &:after {
+                                content: ":";
+                                margin: 0 floor(@font-size-base / 2) 0 2px;
+                                position: relative;
+                                top: -.5px;
+                            }
+                        }
+
+                        .value {
+                            width: 100%;
+                            display: table-cell;
+                            color: @app-page-header-value-color;
+
+                            .@{app-css-prefix}tag {
+                                margin: 0 4px 0 0;
+                                line-height: floor((@font-size-base * 1.275) - 2); 
+                                height: floor((@font-size-base * 1.275) - 2);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .extra {
+                margin-left: 88px;
+                min-width: 242px;
+                text-align: right;
+
+                .term {
+                    color: @app-page-header-extra-term-color;
+                }
+
+                .value {
+                    color: @app-page-header-extra-value-color;
+                    font-size: (@font-size-base + 4);
+                }
+            }
+        }
+
+    }
+
+    // 详情页头部的tab样式覆盖默认
+    > .ivu-tabs > .ivu-tabs-bar {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+}
+
+
+// 详情页主体
+.@{app-retrieve-cls}-body {
+    font-size: @font-size-small;
+
+    // 信息组
+    .info-list {
+        margin-bottom: floor(@font-size-base * 1.5);
+
+        // 信息组标题
+        .title {
+            font-weight: 500;
+            color: @title-color;
+            margin-bottom: @font-size-base;
+        }
+
+        .term, .value {
+            padding-bottom: @font-size-base;
+            line-height: floor(@font-size-base * 1.275);
+            min-height: floor(@font-size-base * 1.275);
+        }
+
+        .term {
+            margin-right: floor(@font-size-base / 2);
+            white-space: nowrap;
+            display: table-cell;
+            color: @app-page-header-term-color;
+
+            &:after {
+                content: ":";
+                margin: 0 floor(@font-size-base / 2) 0 2px;
+                position: relative;
+                top: -.5px;
+            }
+        }
+
+        .value {
+            width: 100%;
+            display: table-cell;
+            color: @app-page-header-value-color;
+
+            .@{app-css-prefix}tag {
+                margin: 0 4px 0 0;
+                line-height: floor((@font-size-base * 1.275) - 2); 
+                height: floor((@font-size-base * 1.275) - 2);
+            }
+        }
+
+    }
+
+}
